@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AppService</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+              <a class="navbar-brand" href="#">AppService</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="service/create.html">Cadastrar serviço</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div class="container" id="section-services" >
+            <div class="row">
+              <template id="services">
+                  <p>Titulo: </p>
+                  <p>Descrição: </p>
+                  <p>Orçamento R$: </p>
+                  <p>Data cadastro: </p>
+                  <p>Data limite: </p>
+                  <p>Situação: </p>
+                  <p>Situação: </p>
+                  <button id="" class="btn btn-primary" onclick="openModal(event)">Editar serviço</button>
+                  <button id="" class="btn btn-primary" onclick="openModalComment(event)">Adicionar comentário</button>
+              </template>
+            </div>
+          </div>
+          <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEdit" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <form action="" method="POST"> -->
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="" class="form-label">Titulo</label>
+                                        <input type="text" name="titulo" class="form-control" id="titulo">
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                        <label for="" class="form-label">Descrição</label>
+                                        <input type="text" name="descricao" class="form-control" id="descricao">
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                        <label for="" class="form-label">Orçamento</label>
+                                        <input type="text" name="orcamento" class="form-control" id="orcamento">
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                        <label for="" class="form-label">Data limite</label>
+                                        <input type="date" name="data_limite" class="form-control" id="data_limite">
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                        <label for="" class="form-label">Situação</label>
+                                        <select name="situacao" class="form-control" id="situacao">
+                                            <option value="">Selecione a opção</option>
+                                            <option value="Aberto">Aberto</option>
+                                            <option value="Concluído">Concluído</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                          <button type="button" onclick="atualizarDados();" id="buttonEdit" id_edit="" class="btn btn-primary w-100">Submit</button>
+                                      </div>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                </div>
+        
+                </div>
+                <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modalComment" tabindex="-1" aria-labelledby="modalComment" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <form action="" method="POST"> -->
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="" class="form-label">Comentário</label>
+                                        <input type="text" name="comentario" class="form-control" id="comentario">
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                          <button type="button" onclick="adicionarComentario();" id="buttonComment" id_comment="" class="btn btn-primary w-100">Submit</button>
+                                      </div>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                </div>
+        
+                </div>
+                <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        
+        <script src="static/js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
+    </body>
+</html>
