@@ -11,6 +11,7 @@ from .models import Service, Comentarios
 
 @api_view(['GET', 'POST'])
 def index(request):
+    # print(Service.objects.all())
     # data = JSONParser().parse(request.body)
     # print(request.data)
     serializer = ServiceSerializer(data=request.data)
@@ -33,7 +34,9 @@ def servico(request, pk):
         return JsonResponse(serializer.data, safe=False)
     elif request.method == 'PUT':
         service = Service.objects.get(id=pk)
+        print(service)
         serializer = ServiceSerializer(service, data=request.data)
+        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
@@ -71,4 +74,20 @@ def comments_add(request, pk):
             Service.objects.filter(id=pk).update(cometarios=comentario)
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+def deletar_servico(request, pk):
+    service = Service.objects.filter(id=pk)
+    if request.method == 'DELETE':
+        service.delete()
+        return JsonResponse({"deletado":"deletado"}, status=201)
+    return JsonResponse({"error":"error"}, status=400)
+
+@api_view(['POST'])
+def order_servico(request):
+    if request.method == 'POST':
+        service = Service.objects.filter().order_by('%s'%request.data['order'])
+        serializer = ServiceSerializer(service, many=True)
+        return JsonResponse(serializer.data, status=201, safe=False)
+    return JsonResponse({"erro":"erro"}, status=400)
     

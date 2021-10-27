@@ -17,6 +17,8 @@ class SituacaoSerializer(serializers.ModelSerializer):
         model = Service
         fields = ['situacao']
 
+# class OrderServicoSerializer(serializers.ModelSerializer):
+
 # class ComentariosSerializers(serializers.ModelSerializer):
 #     class Meta:
 #         model = Comentarios

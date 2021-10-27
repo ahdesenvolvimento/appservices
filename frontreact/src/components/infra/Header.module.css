@@ -1,0 +1,33 @@
+.header{
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    background-color: darkslategrey;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    color: white;
+    height: 55px;
+}
+
+.nav ul li h1{
+    display: inline;
+}
+
+.nav ul li{
+    margin: 0.75rem;
+    display: inline;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    transition: all 500ms;
+    border-radius: 5px;
+}
+
+.nav ul li a:hover{
+    background-color: black;
+}

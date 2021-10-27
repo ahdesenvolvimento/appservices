@@ -1,0 +1,15 @@
+.espaco{
+    padding-top: 40px;
+}
+.footer{
+    height: 35px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    background-color: darkslategrey;
+    width: 100%;
+}
+
+.footer a{
+    color: white
+}
