@@ -1,5 +1,8 @@
-.card{
+.cardCustom{
     background-color: white;
+    border-radius: 10px;
+    min-height: 15rem;
+    height: auto;
     
     /* width: 450px;
     position: relative;
@@ -9,6 +12,17 @@
     transform: translateX(-50%); */
 }
 
+.cardCustom:hover{
+    transition: ease-in-out 500ms;
+    box-shadow: 0 0 1em black;
+    transform: scale(1.010);
+    background-image: linear-gradient(to bottom, black, darkslategrey);
+    color: white;
+}
+
+.cardCustom .content {
+    padding: 15px;
+}
 .card p{
     display: flex;
     justify-content: flex-start;
@@ -17,11 +31,11 @@
     line-height: 0.30rem;
 }
 
-.card .titulo {
+/* .card .titulo {
     text-align: center !important;
 }
 
 .card .margin{
     background-color: blue;
     padding-bottom: 50px;
-}
+} */

@@ -7,21 +7,24 @@
     display: flex;
     justify-content: flex-start;
     color: white;
-    height: 55px;
+    min-height: 55px;
+    height: auto;
 }
 
-.nav ul li h1{
-    display: inline;
+.nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .nav ul li{
-    margin: 0.75rem;
+    margin: 0.5rem;
     display: inline;
 }
 
 .nav ul li a {
     text-decoration: none;
-    background-color: blue;
+    /* background-color: blue; */
     color: white;
     padding: 10px;
     transition: all 500ms;
@@ -30,4 +33,17 @@
 
 .nav ul li a:hover{
     background-color: black;
+}
+
+.toggler{
+    display: none;
+}
+
+@media (max-width: 820px) {
+    .nav .navLinks{
+        display: none;
+    }
+    .toggler{
+        display: block;
+    }
 }

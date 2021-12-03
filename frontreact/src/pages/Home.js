@@ -177,21 +177,21 @@ function Home() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container style={{ backgroundColor: "#f1f1f1" }}>
+      <Container style={{ backgroundColor: "#f1f1f1" }} className="pt-3">
         <select
           name="order_by"
           id=""
           className="form-control"
           onChange={(e) => setOrder(e.target.value)}
         >
-          <option value="">Ordenar</option>
+          <option value="">Ordenar por</option>
           <option value="data_cadastro">Data de cadastro</option>
           <option value="orcamento">Orçamento</option>
         </select>
         <Button
           type="button"
           onClick={(e) => ordernar()}
-          className="btn btn-primary"
+          className="btn btn-primary mt-3"
         >
           Ordenar
         </Button>
