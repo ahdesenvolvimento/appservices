@@ -4,12 +4,14 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework.parsers import JSONParser
 from django.core import serializers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from .serializers import ServiceSerializer, ComentariosSerializer, SituacaoSerializer
 from .models import Service, Comentarios
 # Create your views here.
 
 @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticated])
 def index(request):
     # print(Service.objects.all())
     # data = JSONParser().parse(request.body)
@@ -26,6 +28,7 @@ def index(request):
         return JsonResponse(serializer.errors, status=400)
     
 @api_view(['GET', 'PUT'])
+# @permission_classes([IsAuthenticated])
 def servico(request, pk):
     service = Service.objects.filter(id=pk)
     if request.method == 'GET':

@@ -63,7 +63,7 @@ const Servicos = ({
   }
   // console.log(status);
   return dados.map((servico) => (
-    <div className={styles.cardCustom + " mb-3 mt-3"}>
+    <div className={styles.cardCustom + " mb-3 mt-3"} key={servico.id}>
       <div className={styles.content}>
         <h1>{servico.titulo}</h1>
         <p>
@@ -95,7 +95,7 @@ const Servicos = ({
           </select>
         </p>
         <div className="row">
-          <div className="col-6 d-flex justify-content-between">
+          <div className="col-12 col-sm-12 col-md-12 col-lg-8 d-flex justify-content-between">
             <Button
               type="submit"
               className="btn btn-secondary"
