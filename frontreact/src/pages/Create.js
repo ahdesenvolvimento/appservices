@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../itens/Input";
 import { Button } from "react-bootstrap";
 import Main from "./Main";
+import { Redirect } from "react-router";
 function Create() {
   const [titulo, setTitulo] = useState();
   const [descricao, setDescricao] = useState();
@@ -22,14 +23,21 @@ function Create() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem('auth-token-access')
       },
       body: JSON.stringify(servico),
     };
 
     await fetch("http://localhost:8000/", init);
     window.location.reload(true);
-    // const dados = await response.json()
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem('auth-token-access')){
+      <Redirect to="/login"/>
+      // window.location.href='/login';
+    }
+  })
 
   const content = (
     <div className="card mt-4">

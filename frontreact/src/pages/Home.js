@@ -15,6 +15,7 @@ function Home() {
   const [servico, setServicos] = useState([]);
   const [serv, setServico] = useState([]);
   const [order, setOrder] = useState();
+  const [id, setId] = useState();
 
   const handleClose = () => setShow(false);
   const handleCloseTwo = () => setShowTwo(false);
@@ -23,9 +24,17 @@ function Home() {
   }, []);
 
   async function carregarServicos() {
-      const response = await fetch("http://localhost:8000");
-      const data = await response.json();
-      setServicos(data);
+    const init = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("auth-token-access")
+      },
+      // body: JSON.stringify(servico),
+    };
+    const response = await fetch("http://localhost:8000", init);
+    const data = await response.json();
+    setServicos(data);
   }
 
   async function atualizarServico(e) {
@@ -43,13 +52,15 @@ function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(servico),
+      Authorization: "Bearer " + localStorage.getItem("auth-token-access")
     };
 
     await fetch("http://localhost:8000/index/" + serv.id, init);
     window.location.reload(true);
   }
 
-  async function adicionarComentario(e) {
+  async function adicionarComentario(e, id) {
+    console.log(id);
     const comments = {
       comentario: comentario,
     };
@@ -57,10 +68,11 @@ function Home() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("auth-token-access")
       },
       body: JSON.stringify(comments),
     };
-    await fetch("http://localhost:8000/index/comments/3", init);
+    await fetch("http://localhost:8000/index/comments/"+id, init);
     window.location.reload(true);
   }
 
@@ -72,6 +84,7 @@ function Home() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("auth-token-access")
       },
       body: JSON.stringify(ordernar),
     };
@@ -91,7 +104,7 @@ function Home() {
         style={{ opacity: 1 }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Editar serviço</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <label>Titulo</label>
@@ -136,7 +149,7 @@ function Home() {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Close 
           </Button>
           <Button variant="primary" onClick={atualizarServico}>
             Salvar
@@ -153,7 +166,7 @@ function Home() {
         style={{ opacity: 1 }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Adicionar comentário</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <label>Comentário</label>
@@ -164,6 +177,14 @@ function Home() {
             onChange={(e) => setComentario(e.target.value)}
             className="form-control"
           />
+          <input
+            type="hidden"
+            name="id"
+            id="id"
+            value={id}
+            // onChange={(e) => setComentario(e.target.value)}
+            className="form-control"
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseTwo}>
@@ -171,7 +192,7 @@ function Home() {
           </Button>
           <Button
             variant="primary"
-            onClick={(e) => adicionarComentario(serv.id)}
+            onClick={(e) => adicionarComentario(e, id)}
           >
             Salvar
           </Button>
@@ -205,6 +226,7 @@ function Home() {
           setShow={setShow}
           setShowTwo={setShowTwo}
           setServico={setServico}
+          setId={setId}
         />
       </Container>
     </div>

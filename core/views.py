@@ -6,12 +6,15 @@ from rest_framework.parsers import JSONParser
 from django.core import serializers
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from .serializers import ServiceSerializer, ComentariosSerializer, SituacaoSerializer
+from .serializers import LogoutSerializer, ServiceSerializer, ComentariosSerializer, SituacaoSerializer, UsuarioSerializer
 from .models import Service, Comentarios
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
 
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def index(request):
     # print(Service.objects.all())
     # data = JSONParser().parse(request.body)
@@ -93,4 +96,25 @@ def order_servico(request):
         serializer = ServiceSerializer(service, many=True)
         return JsonResponse(serializer.data, status=201, safe=False)
     return JsonResponse({"erro":"erro"}, status=400)
+
+@api_view(['POST'])
+def usuario(request):
+    if request.method == 'POST':
+        serializer = UsuarioSerializer(data=request.data, many=False)
+        print(request.data)
+        print(serializer)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({"success":'123'}, status=201, safe=False)
+        return JsonResponse({"success":serializer.error_messages}, status=201, safe=False)
     
+
+class LogoutView(generics.GenericAPIView):
+    serializer_class = LogoutSerializer
+    # permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)

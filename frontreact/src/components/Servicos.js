@@ -11,6 +11,7 @@ const Servicos = ({
   setShow,
   setShowTwo,
   setServico,
+  setId
 }) => {
   const [status, setStatus] = useState();
   const handleShow = () => setShow(true);
@@ -23,7 +24,9 @@ const Servicos = ({
     setDataLimite(servico.data_limite);
     handleShow();
   }
-  function carregarModal(e) {
+  function carregarModal(id) {
+    // console.log(id);
+    setId(id)
     handleShowTwo();
   }
 
@@ -35,13 +38,12 @@ const Servicos = ({
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("auth-token-access")
       },
       body: JSON.stringify(servico),
     };
 
     await fetch("http://localhost:8000/index/delete/" + codigo, init);
-    // const dados = await response.json()
-    // window.location = newLocation;
     window.location.reload(true);
   }
   async function atualizarStatus(id) {
@@ -52,17 +54,17 @@ const Servicos = ({
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("auth-token-access")
       },
       body: JSON.stringify(servico),
     };
 
     await fetch("http://localhost:8000/index/situacao/" + id, init);
-    // const dados = await response.json()
-    // window.location = newLocation;
     window.location.reload(true);
   }
   // console.log(status);
   return dados.map((servico) => (
+    
     <div className={styles.cardCustom + " mb-3 mt-3"} key={servico.id}>
       <div className={styles.content}>
         <h1>{servico.titulo}</h1>
@@ -79,6 +81,10 @@ const Servicos = ({
         <p>
           <strong>Data de cadastro: </strong>{" "}
           {servico.data_cadastro.split("-").reverse().join("/")}
+        </p>
+        <p>
+          <strong>Comentários: </strong>{" "}
+          {servico.cometarios}
         </p>
         <p>
           <label htmlFor="">Situação: </label>
@@ -131,63 +137,6 @@ const Servicos = ({
         </div>
       </div>
     </div>
-    // <div className="mb-3 mt-3">
-    //   <div className={"container "+styles.card} key={servico.id}>
-    //     <h1 className={styles.titulo}>{servico.titulo}</h1>
-    //     <p>{servico.descricao}</p>
-    //     <p>R$ {servico.orcamento}</p>
-    //     <p>Data limite: {servico.data_limite}</p>
-    //     <p>Data de cadastro: {servico.data_cadastro}</p>
-    //     <p>
-    //       Situação:{" "}
-    //       <select
-    //         name="status"
-    //         id=""
-    //         className="form-control"
-    //         onChange={(e) => setStatus(e.target.value)}
-    //       >
-    //         <option value="DEFAULT">{servico.situacao}</option>
-    //         <option value="Aberto">Aberto</option>
-    //         <option value="Cancelado">Cancelado</option>
-    //         <option value="Concluído">Concluído</option>
-    //       </select>
-    //     </p>
-    //     <p>Comentários: {servico.cometarios}</p>
-    //     <div className="container pb-4 pt-4">
-    //       <Button
-    //         type="submit"
-    //         className="btn btn-primary margin"
-    //         onClick={(e) => atualizarStatus(servico.id)}
-    //       >
-    //         Alterar Status
-    //       </Button>
-    //       <Button
-    //         type="button"
-    //         className="btn btn-primary margin"
-    //         onClick={(e) => {
-    //           carregarDados(servico);
-    //           setServico(servico);
-    //         }}
-    //       >
-    //         Editar Serviço
-    //       </Button>
-    //       <Button
-    //         type="button"
-    //         className="btn btn-primary margin"
-    //         onClick={(e) => carregarModal(servico.id)}
-    //       >
-    //         Adicionar Comentário
-    //       </Button>
-    //       <Button
-    //         type="button"
-    //         className="btn btn-primary margin"
-    //         onClick={(e) => deletarServico(servico.id)}
-    //       >
-    //         Deletar
-    //       </Button>
-    //     </div>
-    //   </div>
-    // </div>
   ));
 };
 export default Servicos;
