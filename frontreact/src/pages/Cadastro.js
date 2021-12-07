@@ -1,5 +1,5 @@
 import Main from "../pages/Main";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Input from '../itens/Input';
 import { useState } from "react";
 
@@ -61,7 +61,6 @@ export default function Cadastro(){
                   Salvar
                 </button>
               </div>
-            {/* </div> */}
           </Card.Body>
         </Card>
       </form>

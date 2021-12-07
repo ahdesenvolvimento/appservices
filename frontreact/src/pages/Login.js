@@ -36,6 +36,9 @@ export default function Login() {
   };
   const content = (
     <div className={styles.login}>
+      <div className={styles.headerLogin}>
+          <h3>Login</h3>
+      </div>
       <form action="" method="POST" onSubmit={(e) => loginUser(e)}>
         <Input
           id="username"

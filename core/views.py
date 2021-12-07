@@ -16,9 +16,6 @@ from rest_framework import status
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def index(request):
-    # print(Service.objects.all())
-    # data = JSONParser().parse(request.body)
-    # print(request.data)
     serializer = ServiceSerializer(data=request.data)
     if request.method == 'GET':
         service = Service.objects.all()
@@ -31,24 +28,22 @@ def index(request):
         return JsonResponse(serializer.errors, status=400)
     
 @api_view(['GET', 'PUT'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def servico(request, pk):
     service = Service.objects.filter(id=pk)
     if request.method == 'GET':
-        
         serializer = ServiceSerializer(service, many=True)
         return JsonResponse(serializer.data, safe=False)
     elif request.method == 'PUT':
         service = Service.objects.get(id=pk)
-        print(service)
         serializer = ServiceSerializer(service, data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
     
 @api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
 def update_situacao(request, pk):
     service = Service.objects.filter(id=pk)
     if request.method == 'GET':
@@ -65,6 +60,7 @@ def update_situacao(request, pk):
     
     
 @api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
 def comments_add(request, pk):
     service = Service.objects.filter(id=pk)
     if request.method == 'GET':
@@ -82,6 +78,7 @@ def comments_add(request, pk):
         return JsonResponse(serializer.errors, status=400)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def deletar_servico(request, pk):
     service = Service.objects.filter(id=pk)
     if request.method == 'DELETE':
@@ -90,6 +87,7 @@ def deletar_servico(request, pk):
     return JsonResponse({"error":"error"}, status=400)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def order_servico(request):
     if request.method == 'POST':
         service = Service.objects.filter().order_by('%s'%request.data['order'])
@@ -98,11 +96,10 @@ def order_servico(request):
     return JsonResponse({"erro":"erro"}, status=400)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def usuario(request):
     if request.method == 'POST':
         serializer = UsuarioSerializer(data=request.data, many=False)
-        print(request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({"success":'123'}, status=201, safe=False)
@@ -111,7 +108,7 @@ def usuario(request):
 
 class LogoutView(generics.GenericAPIView):
     serializer_class = LogoutSerializer
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
